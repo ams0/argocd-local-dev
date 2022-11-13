@@ -2,6 +2,8 @@
 local=`pwd|cut -c7-`
 local_folder="/minikube-host${local}/.git"
 
+all: start gitea repo argocd root portforward
+
 start:
 	echo "starting minikube"
 	@minikube start --driver docker --mount
@@ -45,5 +47,5 @@ portforward:
 	echo "opening ArgoCD interface on port 8088"
 	@open http://localhost:8088
 
-destroy:
+clean:
 	minikube delete

@@ -33,7 +33,7 @@ argocd:
 
 	echo "installing ArgoCD..."
 	@helm upgrade --wait -i argocd -n argocd --create-namespace argo/argo-cd \
-	--set server.config."timeout\.reconciliation"=10 \
+	--set server.config."timeout\.reconciliation"="10s" \
 	--set configs.params."server\.disable\.auth"=true \
 	--set configs.params."server\.insecure"=true \
 	--set configs.repositories.local.name=local \

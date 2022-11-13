@@ -33,8 +33,10 @@ argocd:
 
 	echo "installing ArgoCD..."
 	@helm upgrade --wait -i argocd -n argocd --create-namespace argo/argo-cd \
+	--set server.config."timeout\.reconciliation"=10 \
 	--set configs.params."server\.disable\.auth"=true \
 	--set configs.params."server\.insecure"=true \
+	--set configs.repositories.local.name=local \
 	--set "configs.repositories.local.url=http://gitea-http.gitea.svc.cluster.local:3000/gitea_admin/local-repo.git" >> /dev/null 2>&1  
 
 root:		

@@ -1,5 +1,9 @@
 #the below is mac-specific
-local=`pwd|cut -c7-`
+#local=`pwd|cut -c7-`
+
+#if run in Codespaces, uncomment the following
+local=`pwd`
+
 local_folder="/minikube-host${local}/.git"
 
 all: start gitea repo argocd root portforward
@@ -9,9 +13,9 @@ start:
 	@minikube start --driver docker --mount
 
 gitea:	
-	#echo "Adding gitea helm repo"
-	#@helm repo add gitea-charts https://dl.gitea.io/charts/ >> /dev/null 2>&1  
-	#@helm repo update  >> /dev/null 2>&1  
+	echo "Adding gitea helm repo"
+	@helm repo add gitea-charts https://dl.gitea.io/charts/ >> /dev/null 2>&1  
+	@helm repo update  >> /dev/null 2>&1  
 
 	echo "Installing gitea and syncing the ${local_folder} folder"
 	
@@ -27,9 +31,9 @@ repo:
 	kill -9 `pgrep kubectl`	
 
 argocd:
-	#echo "Adding argocd helm repo"
-	#@helm repo add argo https://argoproj.github.io/argo-helm >> /dev/null 2>&1  
-	#@helm repo update  >> /dev/null 2>&1  
+	echo "Adding argocd helm repo"
+	@helm repo add argo https://argoproj.github.io/argo-helm >> /dev/null 2>&1  
+	@helm repo update  >> /dev/null 2>&1  
 
 	echo "installing ArgoCD..."
 	@helm upgrade --wait -i argocd -n argocd --create-namespace argo/argo-cd \

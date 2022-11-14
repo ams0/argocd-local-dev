@@ -10,7 +10,7 @@ all: start gitea repo argocd root portforward
 
 start:
 	echo "starting minikube"
-	@minikube start --driver docker --mount
+	@minikube start --driver docker --mount #in codespaces, add --mount-string "/workspaces/argocd-local-dev/.git:/minikube-host/workspaces/argocd-local-dev/.git"
 
 gitea:	
 	echo "Adding gitea helm repo"
